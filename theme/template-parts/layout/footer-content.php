@@ -1,26 +1,6 @@
 <footer id="colophon" class="bg-[#0100B1] text-white py-8">
   
-  <!-- Sidebar Section -->
-  <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-    <aside role="complementary" aria-label="<?php esc_attr_e( 'Footer Sidebar', '_tw' ); ?>" class="max-w-6xl mx-auto p-4">
-      <?php dynamic_sidebar( 'sidebar-1' ); ?>
-    </aside>
-  <?php endif; ?>
 
-  <!-- Footer Navigation Menu -->
-  <?php if ( has_nav_menu( 'menu-2' ) ) : ?>
-    <nav aria-label="<?php esc_attr_e( 'Footer Menu', '_tw' ); ?>" class="max-w-6xl mx-auto p-4">
-      <?php
-      wp_nav_menu(
-        array(
-          'theme_location' => 'menu-2',
-          'menu_class'     => 'footer-menu flex space-x-6 justify-center',
-          'depth'          => 1,
-        )
-      );
-      ?>
-    </nav>
-  <?php endif; ?>
 
   <!-- Footer Content Section -->
   <div class="mx-auto max-w-[1280px] px-4">

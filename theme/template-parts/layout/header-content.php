@@ -1,6 +1,6 @@
 <header id="masthead">
-    <nav id="navbar" class="bg-black/20 fixed w-full z-50 top-0 left-0 transition-all">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-6">
+    <nav id="navbar" class="transparent fixed w-full z-50 top-0 left-0 transition-all">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-6">
             <!-- Logo Section -->
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <span id="navbar-logo" class="text-2xl font-semibold text-white md:text-[#kk0100B1] transition-all">KES</span>
@@ -16,14 +16,14 @@
 
             <!-- Desktop Menu Links -->
             <div class="hidden md:flex md:items-center md:w-auto md:space-x-8" id="navbar-sticky">
-                <ul id="navbar-links" class="flex flex-row p-4 space-x-6 font-medium text-white">
+                <ul id="navbar-links" class="flex flex-row p-4 py-8 space-x-6 font-medium text-white items-center transition-all">
                     <?php
-                    // WordPress dynamic menu
                     wp_nav_menu(array(
                         'theme_location' => 'menu-1',
                         'container' => false,
                         'items_wrap' => '%3$s', // Only show <li> elements
-                        'add_li_class' => 'transition duration-200 p-2 hover:text-blue-500' // Apply hover color change
+                        'add_li_class' => 'transition duration-200 p-2 hover:text-blue-500',
+                        'link_class' => 'text-white', // Default text color for links 
                     ));
                     ?>
                 </ul>
@@ -31,6 +31,7 @@
         </div>
     </nav>
 </header><!-- #masthead -->
+
 
 <!-- Mobile menu -->
 <div id="mobile-menu" class="fixed inset-0 z-40 bg-gray-900 bg-opacity-50 hidden">
@@ -42,7 +43,8 @@
                 'theme_location' => 'menu-1',
                 'container' => false,
                 'items_wrap' => '%3$s',
-                'add_li_class' => 'block py-3 px-5 rounded hover:bg-gray-700 transition duration-300' // Style for mobile menu items
+                'add_li_class' => 'block py-3 px-5 rounded hover:bg-gray-700 transition duration-300', // Style for mobile menu items
+                'link_active_class' => '!text-blue-500' // Active item gets blue color
             ));
             ?>
         </ul>
@@ -72,6 +74,23 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+    const navbarItems = document.querySelectorAll('#navbar-links li');
+    navbarItems.forEach(item => {
+        const link = item.querySelector('a');
+        if (link && link.href === window.location.href) {
+            item.classList.add('text-[#ffffff]');
+            item.classList.add('bg-[#BD161C]');
+            item.classList.add('px-3');
+            item.classList.add('py-1');
+            item.classList.add('rounded-lg');
+
+
+
+        }
+    });
+});
+
     // Scroll event to change navbar background and logo color
     window.addEventListener('scroll', function() {
         const navbar = document.getElementById('navbar');
@@ -82,9 +101,14 @@
         if (window.scrollY > 50) {
             // Add white background on scroll
             navbar.classList.add('bg-white');
-            navbar.classList.remove('bg-black/20');
+            navbar.classList.add('shadow-lg');
+            navbar.classList.remove('transparent');
             navbarLinks.classList.remove('text-white');
             navbarLinks.classList.add('text-gray-800'); // Change text color to dark when the background is white
+
+            navbarLinks.classList.remove('py-8');
+            navbarLinks.classList.add('py-4');
+            
             logo.classList.remove('text-white');
             logo.classList.add('text-gray-800'); // Change logo text color when background is white
 
@@ -95,9 +119,14 @@
             });
         } else {
             // Reset to transparent background when at the top
+            navbar.classList.remove('shadow-lg');
             navbar.classList.remove('bg-white');
-            navbar.classList.add('bg-black/20');
+            navbar.classList.add('transparent');
             navbarLinks.classList.remove('text-gray-800');
+            navbarLinks.classList.remove('py-4');
+
+            navbarLinks.classList.add('py-8');
+
             navbarLinks.classList.add('text-white'); // Reset text color to white
             logo.classList.remove('text-gray-800');
             logo.classList.add('text-white'); // Reset logo color to white
