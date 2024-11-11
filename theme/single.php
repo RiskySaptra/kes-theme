@@ -10,41 +10,61 @@
 get_header();
 ?>
 
-	<section id="primary">
-		<main id="main">
+<section id="primary" class="">
+    <main id="main" class="flex flex-col items-center space-y-12">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
-				get_template_part( 'template-parts/content/content', 'single' );
+        <?php
+        /* Start the Loop */
+        while ( have_posts() ) :
+            the_post();
 
-				if ( is_singular( 'post' ) ) {
-					// Previous/next post navigation.
-					the_post_navigation(
-						array(
-							'next_text' => '<span aria-hidden="true">' . __( 'Next Post', '_tw' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Next post:', '_tw' ) . '</span> <br/>' .
-								'<span>%title</span>',
-							'prev_text' => '<span aria-hidden="true">' . __( 'Previous Post', '_tw' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Previous post:', '_tw' ) . '</span> <br/>' .
-								'<span>%title</span>',
-						)
-					);
-				}
+            // Load the single post content template part
+            get_template_part( 'template-parts/content/content', 'single' );
 
-				// If comments are open, or we have at least one comment, load
-				// the comment template.
-				if ( comments_open() || get_comments_number() ) {
-					comments_template();
-				}
+            // Display navigation for previous and next posts
+            if ( is_singular( 'post' ) ) :
+                ?>
+                <nav class="post-navigation flex justify-between items-center w-full mt-12  max-w-7xl mx-auto">
+                    <div class="w-full flex justify-between items-center">
+                        <div class="text-left">
+                            <?php
+                            $prev_post = get_previous_post();
+                            if ( $prev_post ) :
+                            ?>
+                                <a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>" class="text-sm text-gray-600 hover:text-blue-600">
+                                    <span class="block text-xs"><?php echo __('Previous Post', '_tw'); ?></span>
+                                    <h3 class="font-semibold"><?php echo esc_html( $prev_post->post_title ); ?></h3>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <div class="text-right">
+                            <?php
+                            $next_post = get_next_post();
+                            if ( $next_post ) :
+                            ?>
+                                <a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>" class="text-sm text-gray-600 hover:text-blue-600">
+                                    <span class="block text-xs"><?php echo __('Next Post', '_tw'); ?></span>
+                                    <h3 class="font-semibold"><?php echo esc_html( $next_post->post_title ); ?></h3>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </nav>
+                <?php
+            endif;
 
-				// End the loop.
-			endwhile;
-			?>
+            // Load comments template if comments are open or there is at least one comment
+            if ( comments_open() || get_comments_number() ) :
+                echo '<div class="w-full mt-12 p-6 rounded-lg shadow-md">';
+                comments_template();
+                echo '</div>';
+            endif;
 
-		</main><!-- #main -->
-	</section><!-- #primary -->
+        endwhile; // End the loop.
+        ?>
+
+    </main><!-- #main -->
+</section><!-- #primary -->
 
 <?php
 get_footer();

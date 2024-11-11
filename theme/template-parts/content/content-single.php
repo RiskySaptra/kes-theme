@@ -2,55 +2,120 @@
 /**
  * Template part for displaying single posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
  * @package _tw
  */
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<!-- Banner Section before main content -->
+<section class="bg-blue-600 text-white p-12 text-center w-full">
+    <h2 class="text-4xl font-bold leading-tight mb-4">
+        Welcome to Our Latest Article!
+    </h2>
+    <p class="text-xl opacity-90">
+        Stay updated with the latest posts and articles on our blog. Explore our content and dive in now.
+    </p>
+</section>
 
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-		<?php if ( ! is_page() ) : ?>
-			<div class="entry-meta">
-				<?php _tw_entry_meta(); ?>
-			</div><!-- .entry-meta -->
+<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white shadow-lg rounded-lg overflow-hidden mb-8 transition-all duration-500 ease-in-out flex flex-col lg:flex-row  max-w-7xl mx-auto'); ?>>
+
+    <!-- Main content area -->
+    <div class="flex-1 p-6 bg-gray-100">
+
+	<header class="entry-header mb-6">
+    <h1 class="entry-title text-4xl font-extrabold text-gray-900">
+        <?php echo esc_html( get_the_title() ); ?>
+    </h1>
+
+    <?php if ( ! is_page() ) : ?>
+        <div class="entry-meta mt-4 text-sm text-gray-600 flex space-x-6 items-center">
+            <span class="inline-flex items-center space-x-2">
+                <i class="fas fa-calendar-alt text-gray-500"></i>
+                <span><?php echo get_the_date(); ?></span>
+            </span>
+            <span class="inline-flex items-center space-x-2">
+                <i class="fas fa-user text-gray-500"></i>
+                <span><?php echo get_the_author(); ?></span>
+            </span>
+        </div>
 		<?php endif; ?>
-	</header><!-- .entry-header -->
+	</header>
 
-	<?php _tw_post_thumbnail(); ?>
 
-	<div <?php _tw_content_class( 'entry-content' ); ?>>
-		<?php
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers. */
-					__( 'Continue reading<span class="sr-only"> "%s"</span>', '_tw' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				get_the_title()
-			)
-		);
+        <?php _tw_post_thumbnail(); ?>
 
-		wp_link_pages(
-			array(
-				'before' => '<div>' . __( 'Pages:', '_tw' ),
-				'after'  => '</div>',
-			)
-		);
-		?>
-	</div><!-- .entry-content -->
+        <div <?php _tw_content_class( 'entry-content p-6 text-lg text-gray-800' ); ?>>
+            <?php
+            the_content(
+                sprintf(
+                    wp_kses(
+                        __( 'Continue reading<span class="sr-only"> "%s"</span>', '_tw' ),
+                        [ 'span' => [ 'class' => [] ] ]
+                    ),
+                    esc_html( get_the_title() )
+                )
+            );
 
-	<footer class="entry-footer">
-		<?php _tw_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+            wp_link_pages([ 
+                'before' => '<div class="mt-4 text-sm text-gray-600">' . __( 'Pages:', '_tw' ), 
+                'after'  => '</div>', 
+            ]);
+            ?>
+        </div>
 
-</article><!-- #post-${ID} -->
+        <footer class="entry-footer p-6 bg-gray-50">
+            <div class="flex items-center space-x-4 text-sm text-gray-600">
+                <?php _tw_entry_footer(); ?>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Sidebar with Related Posts and Next Post -->
+    <aside class="lg:w-1/3 flex flex-col space-y-6 p-6 bg-gray-50">
+
+        <!-- Related Posts Section -->
+        <section class="related-posts bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Related Posts</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+                <?php
+                $related_posts = get_posts([ /* Add your query args here for related posts */ ]);
+                if ( $related_posts ) :
+                    foreach ( $related_posts as $post ) :
+                        setup_postdata( $post );
+                        ?>
+                        <div class="bg-white shadow-lg rounded-lg p-4 transform transition-transform hover:scale-105 hover:shadow-xl">
+                            <h3 class="text-xl font-medium text-gray-800"><?php the_title(); ?></h3>
+                            <p class="text-sm text-gray-600 mt-2"><?php echo wp_trim_words( get_the_excerpt(), 15 ); ?></p>
+                            <a href="<?php the_permalink(); ?>" class="text-blue-500 hover:underline mt-4 block">Read More</a>
+                        </div>
+                    <?php
+                    endforeach;
+                    wp_reset_postdata();
+                else :
+                    echo '<p class="text-sm text-gray-600">No related posts available.</p>';
+                endif;
+                ?>
+            </div>
+        </section>
+
+        <!-- Next Post Section -->
+        <section class="next-post bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Next Content to Read</h2>
+            <div class="flex flex-col space-y-4">
+                <?php 
+                $next_post = get_next_post();
+                if ( $next_post ) :
+                    ?>
+                    <a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>" class="text-xl text-blue-500">
+                        <?php echo esc_html( get_the_title( $next_post->ID ) ); ?>
+                    </a>
+                    <p class="text-sm text-gray-600">Click here to read the next post.</p>
+                <?php else : ?>
+                    <p class="text-sm text-gray-600">No next post available.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+    </aside>
+</article>

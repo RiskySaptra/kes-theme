@@ -52,90 +52,87 @@
 </div>
 
 <script>
-    // Mobile menu toggle functionality
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden'); // Toggle visibility of the mobile menu
-    });
-
-    // Close the mobile menu when the close button is clicked
-    document.getElementById('close-menu')?.addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.add('hidden'); // Hide the mobile menu
-    });
-
-    // Optionally close the mobile menu if clicking outside of it
-    window.addEventListener('click', function(e) {
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuToggle = document.getElementById('menu-toggle');
-        
-        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-            mobileMenu.classList.add('hidden'); // Hide the mobile menu when clicking outside
-        }
-    });
-
     document.addEventListener('DOMContentLoaded', function() {
-    const navbarItems = document.querySelectorAll('#navbar-links li');
-    navbarItems.forEach(item => {
-        const link = item.querySelector('a');
-        if (link && link.href === window.location.href) {
-            item.classList.add('text-[#ffffff]');
-            item.classList.add('bg-[#BD161C]');
-            item.classList.add('px-3');
-            item.classList.add('py-1');
-            item.classList.add('rounded-lg');
-
-
-
-        }
-    });
-});
-
-    // Scroll event to change navbar background and logo color
-    window.addEventListener('scroll', function() {
+        // Select elements once for efficiency
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu');
         const navbar = document.getElementById('navbar');
         const logo = document.getElementById('navbar-logo');
         const navbarLinks = document.getElementById('navbar-links');
         const navbarItems = navbarLinks.getElementsByTagName('li');
 
-        if (window.scrollY > 50) {
-            // Add white background on scroll
-            navbar.classList.add('bg-white');
-            navbar.classList.add('shadow-lg');
-            navbar.classList.remove('transparent');
-            navbarLinks.classList.remove('text-white');
-            navbarLinks.classList.add('text-gray-800'); // Change text color to dark when the background is white
+        // Mobile menu toggle functionality
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-            navbarLinks.classList.remove('py-8');
-            navbarLinks.classList.add('py-4');
-            
-            logo.classList.remove('text-white');
-            logo.classList.add('text-gray-800'); // Change logo text color when background is white
+        // Close the mobile menu when the close button is clicked
+        closeMenuButton?.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+        });
 
-            // Update the <li> elements
-            Array.from(navbarItems).forEach(item => {
-                item.classList.remove('text-white');
-                item.classList.add('text-gray-800'); // Change text color of menu items on scroll
-            });
-        } else {
-            // Reset to transparent background when at the top
-            navbar.classList.remove('shadow-lg');
-            navbar.classList.remove('bg-white');
-            navbar.classList.add('transparent');
-            navbarLinks.classList.remove('text-gray-800');
-            navbarLinks.classList.remove('py-4');
+        // Close the mobile menu if clicking outside of it
+        window.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
 
-            navbarLinks.classList.add('py-8');
+        // Highlight active link
+        const currentUrl = window.location.href;
+        Array.from(navbarItems).forEach(item => {
+            const link = item.querySelector('a');
+            if (link && link.href === currentUrl) {
+                item.classList.add('text-white', 'bg-[#BD161C]', 'px-3', 'py-1', 'rounded-lg');
+                item.dataset.isActive = true; // Set data attribute for active item
+            }
+        });
 
-            navbarLinks.classList.add('text-white'); // Reset text color to white
-            logo.classList.remove('text-gray-800');
-            logo.classList.add('text-white'); // Reset logo color to white
+        // Scroll state flag
+        let isScrolled = false;
 
-            // Reset the <li> elements
-            Array.from(navbarItems).forEach(item => {
-                item.classList.remove('text-gray-800');
-                item.classList.add('text-white'); // Reset text color of menu items when at the top
-            });
-        }
+        // Scroll event to change navbar styles
+        window.addEventListener('scroll', function() {
+            const scrolled = window.scrollY > 50;
+            if (scrolled !== isScrolled) {
+                isScrolled = scrolled;
+
+                // Update navbar styles based on scroll position
+                if (isScrolled) {
+                    navbar.classList.add('bg-white', 'shadow-lg');
+                    navbar.classList.remove('transparent');
+                    navbarLinks.classList.add('text-gray-800', 'py-4');
+                    navbarLinks.classList.remove('text-white', 'py-8');
+                    logo.classList.add('text-gray-800');
+                    logo.classList.remove('text-white');
+
+                    // Update navbar items style, preserving active link styling
+                    Array.from(navbarItems).forEach(item => {
+                        if (!item.dataset.isActive) {
+                            item.classList.add('text-gray-800');
+                            item.classList.remove('text-white');
+                        }
+                    });
+                } else {
+                    navbar.classList.remove('bg-white', 'shadow-lg');
+                    navbar.classList.add('transparent');
+                    navbarLinks.classList.add('text-white', 'py-8');
+                    navbarLinks.classList.remove('text-gray-800', 'py-4');
+                    logo.classList.add('text-white');
+                    logo.classList.remove('text-gray-800');
+
+                    // Reset navbar items style, preserving active link styling
+                    Array.from(navbarItems).forEach(item => {
+                        if (!item.dataset.isActive) {
+                            item.classList.add('text-white');
+                            item.classList.remove('text-gray-800');
+                        }
+                    });
+                }
+            }
+        });
     });
 </script>
+
+
