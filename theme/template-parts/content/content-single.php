@@ -8,7 +8,7 @@
 ?>
 
 <!-- Banner Section before main content -->
-<section class="bg-blue-600 text-white p-12 text-center w-full">
+<section class="bg-blue-600 text-white p-12 text-center w-full pt-[140px]">
     <h2 class="text-4xl font-bold leading-tight mb-4">
         Welcome to Our Latest Article!
     </h2>
@@ -17,7 +17,37 @@
     </p>
 </section>
 
+<section class="max-w-7xl mx-auto text-gray-800 w-full py-5">
+    <nav class="flex items-center space-x-3 text-sm text-gray-500">
+        <?php
+        // Check if Breadcrumb NavXT plugin is active
+        if ( function_exists( 'bcn_display' ) ) {
+            bcn_display();  // Display breadcrumbs if plugin is active
+        } else {
+            // Fallback for dynamic breadcrumbs
+            if ( is_home() || is_front_page() ) {
+                echo '<span class="text-gray-600">Home</span>';
+            } elseif ( is_category() || is_single() ) {
+                // Display the category for posts
+                echo '<span class="text-indigo-600 hover:text-indigo-800 transition-colors">Category: </span>';
+                the_category(' <span class="text-gray-400">/</span> ');
+                if ( is_single() ) {
+                    // Add the post title for single post pages
+                    echo ' <span class="text-gray-400">/</span> <span class="text-indigo-600 hover:text-indigo-800 transition-colors">' . get_the_title() . '</span>';
+                }
+            } elseif ( is_page() ) {
+                // For static pages, show the page title
+                echo ' <span class="text-gray-400">/</span> <span class="text-indigo-600 hover:text-indigo-800 transition-colors">' . get_the_title() . '</span>';
+            }
+        }
+        ?>
+    </nav>
+</section>
 
+
+
+
+ 
 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white shadow-lg rounded-lg overflow-hidden mb-8 transition-all duration-500 ease-in-out flex flex-col lg:flex-row  max-w-7xl mx-auto'); ?>>
 
     <!-- Main content area -->

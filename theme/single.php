@@ -11,7 +11,7 @@ get_header();
 ?>
 
 <section id="primary" class="">
-    <main id="main" class="flex flex-col items-center space-y-12">
+    <main id="main" class="flex flex-col items-center">
 
         <?php
         /* Start the Loop */
@@ -24,7 +24,7 @@ get_header();
             // Display navigation for previous and next posts
             if ( is_singular( 'post' ) ) :
                 ?>
-                <nav class="post-navigation flex justify-between items-center w-full mt-12  max-w-7xl mx-auto">
+                <nav class="post-navigation flex justify-between items-center w-full mt-12 px-10 max-w-7xl mx-auto pb-5">
                     <div class="w-full flex justify-between items-center">
                         <div class="text-left">
                             <?php
