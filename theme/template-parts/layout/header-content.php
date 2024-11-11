@@ -79,13 +79,16 @@
             }
         });
 
+        const baseurl = window.location.origin; 
         // Highlight active link
         const currentUrl = window.location.href;
         Array.from(navbarItems).forEach(item => {
-            const link = item.querySelector('a');
-            if (link && link.href === currentUrl) {
+            const link = item.querySelector('a'); 
+
+            // Check if the link href includes the current URL but is not the base URL
+            if (link && (link.href === currentUrl || (currentUrl.includes(link.href) && link.href !== baseurl + '/'))) {
                 item.classList.add('text-white', 'bg-[#BD161C]', 'px-3', 'py-1', 'rounded-lg');
-                item.dataset.isActive = true; // Set data attribute for active item
+                item.dataset.isActive = true;  
             }
         });
 

@@ -1,76 +1,73 @@
 <?php
 /**
- * Template part for displaying a message when posts are not found
+ * The template for displaying search results pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
  *
  * @package _tw
  */
 
+get_header();
 ?>
 
-<section>
+<section id="primary" class="bg-gray-50 py-8">
+	<main id="main" class="container mx-auto px-4">
 
-	<header class="page-header">
-		<?php if ( is_search() ) : ?>
+		<?php if ( have_posts() ) : ?>
 
-			<h1 class="page-title">
+			<header class="page-header mb-8 text-center">
+				<h1 class="text-3xl font-bold text-gray-800">
+					<?php
+					printf(
+						/* translators: 1: search result title. 2: search term. */
+						esc_html__( 'Search results for: ', '_tw' ) . '<span class="text-indigo-600">%s</span>',
+						get_search_query()
+					);
+					?>
+				</h1>
+			</header><!-- .page-header -->
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 				<?php
-				printf(
-					/* translators: 1: search result title. 2: search term. */
-					'<h1 class="page-title">%1$s <span>%2$s</span></h1>',
-					esc_html__( 'Search results for:', '_tw' ),
-					get_search_query()
-				);
+				// Start the Loop.
+				while ( have_posts() ) :
+					the_post();
+					get_template_part( 'template-parts/content/content', 'excerpt' );
+				// End the loop.
+				endwhile;
 				?>
-			</h1>
+			</div>
+
+			<!-- Pagination -->
+			<div class="mt-8">
+				<?php _tw_the_posts_navigation(); ?>
+			</div>
 
 		<?php else : ?>
 
-			<h1 class="page-title"><?php esc_html_e( 'Nothing Found', '_tw' ); ?></h1>
+			<!-- If no content is found, show a friendly message -->
+			<div class="text-center">
+				<h2 class="text-2xl font-semibold text-gray-700 mb-4">
+					<?php esc_html_e( 'No results found', '_tw' ); ?>
+				</h2>
+				<p class="text-lg text-gray-500 mb-4">
+					<?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with different keywords.', '_tw' ); ?>
+				</p>
+
+				<!-- Search form -->
+				<div class="mt-4">
+					<form role="search" method="get" class="search-form flex justify-center items-center space-x-4" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+						<input type="search" class="search-field w-80 p-3 text-base border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="<?php esc_attr_e( 'Search...', '_tw' ); ?>" value="<?php echo get_search_query(); ?>" name="s">
+						<button type="submit" class="search-submit px-6 py-3 bg-indigo-600 text-white rounded-r-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+							<?php esc_html_e( 'Search', '_tw' ); ?>
+						</button>
+					</form>
+				</div>
+			</div>
 
 		<?php endif; ?>
-	</header><!-- .page-header -->
+	</main><!-- #main -->
+</section><!-- #primary -->
 
-	<div <?php _tw_content_class( 'page-content' ); ?>>
-		<?php
-		if ( is_home() && current_user_can( 'publish_posts' ) ) :
-			?>
-
-			<p>
-				<?php esc_html_e( 'Your site is set to show the most recent posts on your homepage, but you haven&rsquo;t published any posts.', '_tw' ); ?>
-			</p>
-
-			<p>
-				<a href="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
-					<?php
-					/* translators: 1: link to WP admin new post page. */
-					esc_html_e( 'Add or publish posts', '_tw' );
-					?>
-				</a>
-			</p>
-
-			<?php
-		elseif ( is_search() ) :
-			?>
-
-			<p>
-				<?php esc_html_e( 'Your search generated no results. Please try a different search.', '_tw' ); ?>
-			</p>
-
-			<?php
-			get_search_form();
-		else :
-			?>
-
-			<p>
-				<?php esc_html_e( 'No content matched your request.', '_tw' ); ?>
-			</p>
-
-			<?php
-			get_search_form();
-		endif;
-		?>
-	</div><!-- .page-content -->
-
-</section>
+<?php
+get_footer();

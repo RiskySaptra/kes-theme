@@ -207,3 +207,27 @@ require get_template_directory() . '/inc/template-tags.php';
  * Functions which enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
+
+
+function custom_rewrite_rules() {
+    // Rewrite rule to match /artikel/category-slug/post-slug/
+    add_rewrite_rule(
+        '^artikel/([^/]+)/([^/]+)/?$',
+        'index.php?category_name=$matches[1]&name=$matches[2]',
+        'top'
+    );
+}
+add_action('init', 'custom_rewrite_rules');
+
+function custom_permalinks($permalink, $post) {
+    if ($post->post_type == 'post') {
+        $categories = get_the_category($post->ID);
+        if ($categories) {
+            $category_slug = $categories[0]->slug;  // Get the category slug
+            $post_slug = $post->post_name;           // Get the post slug
+            return home_url("/artikel/{$category_slug}/{$post_slug}/");  // Return the custom permalink structure
+        }
+    }
+    return $permalink;  // Return default permalink if it's not a post
+}
+add_filter('post_link', 'custom_permalinks', 10, 2);
