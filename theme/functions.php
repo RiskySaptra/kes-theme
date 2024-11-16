@@ -102,6 +102,13 @@ if ( ! function_exists( '_tw_setup' ) ) :
 			)
 		);
 
+		add_theme_support('custom-logo', array(
+			'height'      => 100, // Logo height (adjust as needed)
+			'width'       => 300, // Logo width (adjust as needed)
+			'flex-width'  => true, // Allow flexible width
+			'flex-height' => true, // Allow flexible height
+		));
+
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -218,17 +225,7 @@ function custom_rewrite_rules() {
     );
 }
 add_action('init', 'custom_rewrite_rules');
-
-function theme_setup() {
-    // Add support for custom logo
-    add_theme_support('custom-logo', array(
-        'height'      => 100, // Logo height (adjust as needed)
-        'width'       => 300, // Logo width (adjust as needed)
-        'flex-width'  => true, // Allow flexible width
-        'flex-height' => true, // Allow flexible height
-    ));
-}
-add_action('after_setup_theme', 'theme_setup');
+ 
 
 function custom_permalinks($permalink, $post) {
     if ($post->post_type == 'post') {

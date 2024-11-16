@@ -35,3 +35,21 @@
  */
 @import "tailwindcss/utilities";
 @import "./custom/utilities.css";
+
+/* Style the logo container */
+.custom-logo-link {
+	max-width: 150px; /* Limit the maximum width */
+}
+
+/* Style the logo image */
+.custom-logo {
+	width: 100%; /* Make it responsive */
+	height: auto; /* Maintain aspect ratio */
+}
+
+/* Adjust for mobile */
+@media (max-width: 768px) {
+	.custom-logo-link {
+		max-width: 70px; /* Smaller size for mobile */
+	}
+}

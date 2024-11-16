@@ -3,13 +3,13 @@
         <div class="max-w-screen-xl flex items-center justify-between mx-auto px-6">
             <!-- Logo Section -->
             <?php 
-                        if (has_custom_logo()) {
-                            the_custom_logo(); // This will display the custom logo
-                        } else {
-                            // Fallback logo if no custom logo is set
-                            echo '<img src="' . get_template_directory_uri() . '/assets/images/default-logo.png" alt="Logo" class="w-24 h-auto">';
-                        }
-                    ?>
+                if (has_custom_logo()) {
+                    the_custom_logo(); // This will display the custom logo
+                } else {
+                    // Fallback logo if no custom logo is set
+                    echo '<img src="' . get_template_directory_uri() . '/assets/images/default-logo.png" alt="Logo" class="w-24 h-auto">';
+                }
+            ?>
 
             <!-- Mobile Menu Toggle -->
             <button id="menu-toggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
