@@ -80,12 +80,6 @@
       </div>
     </div>
 
-    <!-- Footer Bottom Certifications -->
-    <div class="border-t border-white mt-8 pt-4 text-center text-xs space-x-6">
-      <span>ISO 9001 <span class="text-gray-400">QUALITY SYSTEM</span></span>
-      <span>ISO 14001 <span class="text-gray-400">ENVIRONMENTAL SYSTEM</span></span>
-      <span>ISO 45001 <span class="text-gray-400">HEALTH & SAFETY SYSTEM</span></span>
-      <span>SMK3 <span class="text-gray-400">PP NO. 50/2012</span></span>
-    </div>
+ 
   </div>
 </footer>
