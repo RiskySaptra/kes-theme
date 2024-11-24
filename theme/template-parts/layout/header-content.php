@@ -4,9 +4,8 @@
             <!-- Logo Section -->
             <?php 
                 if (has_custom_logo()) {
-                    the_custom_logo(); // This will display the custom logo
+                    the_custom_logo();
                 } else {
-                    // Fallback logo if no custom logo is set
                     echo '<img src="' . get_template_directory_uri() . '/assets/images/default-logo.png" alt="Logo" class="w-24 h-auto">';
                 }
             ?>
@@ -26,16 +25,75 @@
                     wp_nav_menu(array(
                         'theme_location' => 'menu-1',
                         'container' => false,
-                        'items_wrap' => '%3$s', // Only show <li> elements
+                        'items_wrap' => '%3$s',
                         'add_li_class' => 'transition duration-200 p-2 hover:text-blue-500',
-                        'link_class' => 'text-white', // Default text color for links 
+                        'link_class' => 'text-white',
                     ));
                     ?>
+
+                    <!-- Dropdown Button -->
+                    <li class="relative">
+    <!-- Dropdown Button -->
+    <button 
+        id="dropdownButton" 
+        type="button" 
+        class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#0001fe] rounded-md hover:bg-[#0001fe]/80 transition"
+        aria-expanded="false" 
+        aria-haspopup="true"
+    >
+        <?php echo esc_html(get_theme_mod('dropdown_button_text', 'Belanja Sekarang')); ?>
+        <svg 
+            class="ml-2 h-5 w-5" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 20 20" 
+            fill="currentColor" 
+            aria-hidden="true"
+        >
+            <path 
+                fill-rule="evenodd" 
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" 
+                clip-rule="evenodd" 
+            />
+        </svg>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div 
+        id="dropdownMenu" 
+        class="absolute right-0 mt-2 hidden w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+        role="menu" 
+        aria-orientation="vertical" 
+        aria-labelledby="dropdownButton"
+    >
+        <div class="py-1" role="none">
+            <?php 
+            // Retrieve dropdown links dynamically
+            $dropdown_links = json_decode(get_theme_mod('dropdown_links', '[]'), true);
+            if (!empty($dropdown_links)) {
+                foreach ($dropdown_links as $link) {
+                    $label = esc_html($link['label'] ?? '');
+                    $url = esc_url($link['url'] ?? '#');
+                    $color = esc_attr($link['color'] ?? '#4b5563'); // Default hover color (gray-600)
+
+                    echo "<a 
+                            href='{$url}' 
+                            class='block px-4 py-2 text-sm text-gray-700 transition hover:text-white hover:bg-[{$color}]' 
+                            target='_blank'
+                            role='menuitem'>
+                            {$label}
+                          </a>";
+                }
+            }
+            ?>
+        </div>
+    </div>
+</li>
+
                 </ul>
             </div>
         </div>
     </nav>
-</header><!-- #masthead -->
+</header>
 
 
 <!-- Mobile menu -->
@@ -52,6 +110,7 @@
                 'link_active_class' => '!text-blue-500' // Active item gets blue color
             ));
             ?>
+            
         </ul>
     </div>
 </div>
@@ -66,6 +125,19 @@
         const logo = document.getElementById('navbar-logo');
         const navbarLinks = document.getElementById('navbar-links');
         const navbarItems = navbarLinks.getElementsByTagName('li');
+
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        dropdownButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent event from bubbling up
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdown if clicking outside
+        window.addEventListener('click', function() {
+            dropdownMenu.classList.add('hidden');
+        });
 
         // Mobile menu toggle functionality
         menuToggle.addEventListener('click', function() {

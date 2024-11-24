@@ -239,3 +239,113 @@ function custom_permalinks($permalink, $post) {
     return $permalink;  // Return default permalink if it's not a post
 }
 add_filter('post_link', 'custom_permalinks', 10, 2);
+
+function theme_customize_register($wp_customize) {
+    // Add a new section for the dropdown
+    $wp_customize->add_section('dropdown_settings', [
+        'title'       => __('Marketplace Button Dropdown', 'your-theme'),
+        'priority'    => 30,
+        'description' => __('Customize the dropdown menu.', 'your-theme'),
+    ]);
+
+    // Dropdown Button Text
+    $wp_customize->add_setting('dropdown_button_text', [
+        'default'           => 'Belanja Sekarang',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+
+    $wp_customize->add_control('dropdown_button_text', [
+        'label'   => __('Dropdown Button Text', 'your-theme'),
+        'section' => 'dropdown_settings',
+        'type'    => 'text',
+    ]);
+
+    // Dropdown Links (Repeatable Field)
+    $wp_customize->add_setting('dropdown_links', [
+        'default'           => json_encode([]), // Default empty
+        'sanitize_callback' => 'wp_kses_post',  // Sanitize as JSON
+    ]);
+
+    $wp_customize->add_control(new Dropdown_Links_Custom_Control(
+        $wp_customize,
+        'dropdown_links',
+        [
+            'label'       => __('Dropdown Links', 'your-theme'),
+            'section'     => 'dropdown_settings',
+            'settings'    => 'dropdown_links',
+            'description' => __('Add dropdown links below.'),
+        ]
+    ));
+}
+add_action('customize_register', 'theme_customize_register');
+
+// Custom Control for Repeatable Fields
+if (class_exists('WP_Customize_Control')) {
+    class Dropdown_Links_Custom_Control extends WP_Customize_Control {
+        public $type = 'repeatable';
+
+        public function render_content() {
+            $links = json_decode($this->value(), true);
+            $links = is_array($links) ? $links : [];
+
+            ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
+                <button type="button" class="button add-dropdown-item"><?php _e('Add Item', 'your-theme'); ?></button>
+            </label>
+            <ul class="dropdown-items">
+                <?php foreach ($links as $index => $link) : ?>
+                    <li class="dropdown-item">
+                        <input type="text" class="dropdown-label" value="<?php echo esc_attr($link['label']); ?>" placeholder="Label">
+                        <input type="url" class="dropdown-url" value="<?php echo esc_attr($link['url']); ?>" placeholder="URL">
+                        <input type="color" class="dropdown-color" value="<?php echo esc_attr($link['color']); ?>" title="Hover Color">
+                        <button type="button" class="button remove-dropdown-item"><?php _e('Remove', 'your-theme'); ?></button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <textarea class="dropdown-links-json hidden" <?php $this->link(); ?>><?php echo esc_textarea(json_encode($links)); ?></textarea>
+            <script>
+                (function($) {
+                    const container = $('.dropdown-items');
+                    const textarea = $('.dropdown-links-json');
+
+                    $('.add-dropdown-item').on('click', function() {
+                        const newItem = `
+                            <li class="dropdown-item">
+                                <input type="text" class="dropdown-label" placeholder="Label">
+                                <input type="url" class="dropdown-url" placeholder="URL">
+                                <input type="color" class="dropdown-color" title="Hover Color">
+                                <button type="button" class="button remove-dropdown-item">Remove</button>
+                            </li>`;
+                        container.append(newItem);
+                        updateTextarea();
+                    });
+
+                    container.on('click', '.remove-dropdown-item', function() {
+                        $(this).closest('li').remove();
+                        updateTextarea();
+                    });
+
+                    container.on('input', '.dropdown-label, .dropdown-url, .dropdown-color', function() {
+                        updateTextarea();
+                    });
+
+                    function updateTextarea() {
+                        const data = [];
+                        container.find('.dropdown-item').each(function() {
+                            const label = $(this).find('.dropdown-label').val();
+                            const url = $(this).find('.dropdown-url').val();
+                            const color = $(this).find('.dropdown-color').val();
+                            if (label && url) {
+                                data.push({ label, url, color });
+                            }
+                        });
+                        textarea.val(JSON.stringify(data)).trigger('change');
+                    }
+                })(jQuery);
+            </script>
+            <?php
+        }
+    }
+}
+
