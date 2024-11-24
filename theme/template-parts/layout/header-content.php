@@ -264,12 +264,10 @@
         });        
         
         window.addEventListener('scroll', function () { 
-
+            const scrolled = window.scrollY > 50;
+            const isActive = !mobileMenu.classList.contains('hidden');
             menuToggle.classList.toggle('text-[#0003fb]', isScrolled); // Blue when scrolled
-            menuToggle.classList.toggle('text-white', !isScrolled && !isActive); // White if not scrolled and menu inactive
-            navbar.classList.toggle('bg-white', isScrolled);
-            navbar.classList.toggle('shadow-lg', isScrolled);
-            navbar.classList.toggle('transparent', !isScrolled);
+            menuToggle.classList.toggle('text-white', !isScrolled && !isActive); // White if not scrolled and menu inactive 
         });
 
         // Update navbar styles on scroll
