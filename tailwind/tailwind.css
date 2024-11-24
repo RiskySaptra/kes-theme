@@ -38,7 +38,11 @@
 
 /* Style the logo container */
 .custom-logo-link {
-	max-width: 150px; /* Limit the maximum width */
+	background-color: rgba(255, 255, 255, 1); /* White with 80% opacity */
+	border-radius: 5px;
+	padding-left: 2px;
+	padding-right: 2px;
+	max-width: 350px; /* Limit the maximum width */
 }
 
 /* Style the logo image */
@@ -50,6 +54,7 @@
 /* Adjust for mobile */
 @media (max-width: 768px) {
 	.custom-logo-link {
-		max-width: 70px; /* Smaller size for mobile */
+		background-color: transparent;
+		max-width: 200px; /* Smaller size for mobile */
 	}
 }
