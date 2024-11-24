@@ -57,13 +57,12 @@
         </svg>
     </button>
 
-    <!-- Dropdown Menu -->
     <div 
-        id="dropdownMenu" 
-        class="absolute right-0 mt-2 hidden w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
-        role="menu" 
-        aria-orientation="vertical" 
-        aria-labelledby="dropdownButton"
+    id="dropdownMenu" 
+    class="absolute right-0 mt-2 hidden w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+    role="menu" 
+    aria-orientation="vertical" 
+    aria-labelledby="dropdownButton"
     >
         <div class="py-1" role="none">
             <?php 
@@ -77,11 +76,12 @@
 
                     echo "<a 
                             href='{$url}' 
-                            class='block px-4 py-2 text-sm text-gray-700 transition hover:text-white hover:bg-[{$color}]' 
+                            class='block px-4 py-2 text-sm text-gray-700 transition hover:text-white' 
+                            style='--hover-bg-color: {$color};' 
                             target='_blank'
                             role='menuitem'>
                             {$label}
-                          </a>";
+                        </a>";
                 }
             }
             ?>
@@ -116,6 +116,16 @@
 </div>
 
 <script>
+        // JavaScript to apply the dynamic hover color via inline styles
+        document.querySelectorAll('#dropdownMenu a').forEach(function(link) {
+        link.addEventListener('mouseenter', function() {
+            const hoverColor = link.style.getPropertyValue('--hover-bg-color');
+            link.style.backgroundColor = hoverColor;
+        });
+        link.addEventListener('mouseleave', function() {
+            link.style.backgroundColor = ''; // Reset background color on mouse leave
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         // Select elements once for efficiency
         const menuToggle = document.getElementById('menu-toggle');

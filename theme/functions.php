@@ -241,7 +241,7 @@ function custom_permalinks($permalink, $post) {
 add_filter('post_link', 'custom_permalinks', 10, 2);
 
 function theme_customize_register($wp_customize) {
-    // Add a new section for the dropdown
+    // Add a new section for the dropdown menu customization
     $wp_customize->add_section('dropdown_settings', [
         'title'       => __('Marketplace Button Dropdown', 'your-theme'),
         'priority'    => 30,
@@ -250,7 +250,7 @@ function theme_customize_register($wp_customize) {
 
     // Dropdown Button Text
     $wp_customize->add_setting('dropdown_button_text', [
-        'default'           => 'Belanja Sekarang',
+        'default'           => __('Belanja Sekarang', 'your-theme'),
         'sanitize_callback' => 'sanitize_text_field',
     ]);
 
@@ -262,7 +262,7 @@ function theme_customize_register($wp_customize) {
 
     // Dropdown Links (Repeatable Field)
     $wp_customize->add_setting('dropdown_links', [
-        'default'           => json_encode([]), // Default empty
+        'default'           => json_encode([]), // Default empty array
         'sanitize_callback' => 'wp_kses_post',  // Sanitize as JSON
     ]);
 
@@ -273,13 +273,13 @@ function theme_customize_register($wp_customize) {
             'label'       => __('Dropdown Links', 'your-theme'),
             'section'     => 'dropdown_settings',
             'settings'    => 'dropdown_links',
-            'description' => __('Add dropdown links below.'),
+            'description' => __('Add and customize dropdown links below.', 'your-theme'),
         ]
     ));
 }
 add_action('customize_register', 'theme_customize_register');
 
-// Custom Control for Repeatable Fields
+ 
 if (class_exists('WP_Customize_Control')) {
     class Dropdown_Links_Custom_Control extends WP_Customize_Control {
         public $type = 'repeatable';
@@ -288,64 +288,141 @@ if (class_exists('WP_Customize_Control')) {
             $links = json_decode($this->value(), true);
             $links = is_array($links) ? $links : [];
 
+            $marketplaces = [
+                ['label' => 'Tokopedia', 'url' => 'https://www.tokopedia.com', 'color' => '#00ab59'],
+                ['label' => 'Shopee', 'url' => 'https://shopee.co.id', 'color' => '#f84a2f'],
+                ['label' => 'Blibli', 'url' => 'https://www.blibli.com', 'color' => '#0072ff'],
+            ];
             ?>
-            <label>
-                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
-                <button type="button" class="button add-dropdown-item"><?php _e('Add Item', 'your-theme'); ?></button>
+
+            <label class="block text-lg font-medium text-gray-700 mb-2">
+                <?php echo esc_html($this->label); ?>
             </label>
-            <ul class="dropdown-items">
-                <?php foreach ($links as $index => $link) : ?>
-                    <li class="dropdown-item">
-                        <input type="text" class="dropdown-label" value="<?php echo esc_attr($link['label']); ?>" placeholder="Label">
-                        <input type="url" class="dropdown-url" value="<?php echo esc_attr($link['url']); ?>" placeholder="URL">
-                        <input type="color" class="dropdown-color" value="<?php echo esc_attr($link['color']); ?>" title="Hover Color">
-                        <button type="button" class="button remove-dropdown-item"><?php _e('Remove', 'your-theme'); ?></button>
+
+            <button type="button" class="add-dropdown-item bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                <?php esc_html_e('Add Item', 'your-theme'); ?>
+            </button>
+
+            <ul class="dropdown-items space-y-4 mt-4">
+                <?php foreach ($links as $link) : ?>
+                    <li class="dropdown-item space-y-2 p-4 border rounded-md shadow-sm bg-gray-50">
+                        <div class="grid">
+                            <label class="text-gray-700"><?php esc_html_e('Marketplace', 'your-theme'); ?></label>
+                            <select class="dropdown-select w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                                <option value=""><?php esc_html_e('Select Marketplace', 'your-theme'); ?></option>
+                                <?php foreach ($marketplaces as $marketplace) : ?>
+                                    <option value="<?php echo esc_attr(json_encode($marketplace)); ?>" <?php selected($link['url'], $marketplace['url']); ?>>
+                                        <?php echo esc_html($marketplace['label']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="grid">
+                            <label class="text-gray-700"><?php esc_html_e('Label', 'your-theme'); ?></label>
+                            <input type="text" class="dropdown-label w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="<?php echo esc_attr($link['label']); ?>" placeholder="<?php esc_attr_e('Label', 'your-theme'); ?>">
+                        </div>
+                        <div class="grid">
+                            <label class="text-gray-700"><?php esc_html_e('URL', 'your-theme'); ?></label>
+                            <input type="url" class="dropdown-url w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="<?php echo esc_attr($link['url']); ?>" placeholder="<?php esc_attr_e('URL', 'your-theme'); ?>">
+                        </div>
+						<div class="flex items-center space-x-4 my-5">
+                            <label for="dropdown-color" class="w-1/4 text-gray-700"><?php esc_html_e('Hover Color', 'your-theme'); ?></label>
+                            <input type="color" class="dropdown-color" value="<?php echo esc_attr($link['color']); ?>" title="<?php esc_attr_e('Hover Color', 'your-theme'); ?>">
+                        </div>
+
+                        <button type="button" class="remove-dropdown-item button mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                            <?php esc_html_e('Remove', 'your-theme'); ?>
+                        </button>
+                 
                     </li>
                 <?php endforeach; ?>
             </ul>
+
             <textarea class="dropdown-links-json hidden" <?php $this->link(); ?>><?php echo esc_textarea(json_encode($links)); ?></textarea>
-            <script>
-                (function($) {
-                    const container = $('.dropdown-items');
-                    const textarea = $('.dropdown-links-json');
 
-                    $('.add-dropdown-item').on('click', function() {
-                        const newItem = `
-                            <li class="dropdown-item">
-                                <input type="text" class="dropdown-label" placeholder="Label">
-                                <input type="url" class="dropdown-url" placeholder="URL">
-                                <input type="color" class="dropdown-color" title="Hover Color">
-                                <button type="button" class="button remove-dropdown-item">Remove</button>
-                            </li>`;
-                        container.append(newItem);
-                        updateTextarea();
-                    });
+			<script>
+			(function($) {
+				$(document).ready(function() {
+					const container = $('.dropdown-items'); // Ensure this selector matches your HTML
+					const textarea = $('.dropdown-links-json'); // The hidden field for storing JSON
+					const marketplaces = <?php echo json_encode($marketplaces); ?>;
 
-                    container.on('click', '.remove-dropdown-item', function() {
-                        $(this).closest('li').remove();
-                        updateTextarea();
-                    });
+					// Function to update the hidden textarea
+					function updateTextarea() {
+						const data = [];
+						container.find('.dropdown-item').each(function() {
+							const label = $(this).find('.dropdown-label').val();
+							const url = $(this).find('.dropdown-url').val();
+							const color = $(this).find('.dropdown-color').val();
+							if (label && url) {
+								data.push({ label, url, color });
+							}
+						});
+						textarea.val(JSON.stringify(data)).trigger('change');
+						console.log("Updated data:", data); // Debugging
+					}
 
-                    container.on('input', '.dropdown-label, .dropdown-url, .dropdown-color', function() {
-                        updateTextarea();
-                    });
+					// Add a new dropdown item
+					$(document).on('click', '.add-dropdown-item', function() {
+						const newItem = `
+							<li class="dropdown-item space-y-2 p-4 border rounded-md shadow-sm bg-gray-50">
+								<div class="grid">
+									<label class="text-gray-700"><?php esc_html_e('Marketplace', 'your-theme'); ?></label>
+									<select class="dropdown-select w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+										<option value=""><?php esc_html_e('Select Marketplace', 'your-theme'); ?></option>
+										${marketplaces.map(m => `
+											<option value='${JSON.stringify(m)}'>${m.label}</option>
+										`).join('')}
+									</select>
+								</div>
+								<div class="grid">
+									<label class="text-gray-700"><?php esc_html_e('Label', 'your-theme'); ?></label>
+									<input type="text" class="dropdown-label w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="<?php esc_attr_e('Label', 'your-theme'); ?>">
+								</div>
+								<div class="grid">
+									<label class="text-gray-700"><?php esc_html_e('URL', 'your-theme'); ?></label>
+									<input type="url" class="dropdown-url w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="<?php esc_attr_e('URL', 'your-theme'); ?>">
+								</div>
+								<div class="flex items-center space-x-4 my-5">
+									<label class="text-gray-700"><?php esc_html_e('Hover Color', 'your-theme'); ?></label>
+									<input type="color" class="dropdown-color">
+								</div>
+								<button type="button" class="remove-dropdown-item bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+									<?php esc_html_e('Remove', 'your-theme'); ?>
+								</button>
+							</li>`;
+						container.append(newItem);
+						updateTextarea(); // Immediately update the JSON after adding
+					});
 
-                    function updateTextarea() {
-                        const data = [];
-                        container.find('.dropdown-item').each(function() {
-                            const label = $(this).find('.dropdown-label').val();
-                            const url = $(this).find('.dropdown-url').val();
-                            const color = $(this).find('.dropdown-color').val();
-                            if (label && url) {
-                                data.push({ label, url, color });
-                            }
-                        });
-                        textarea.val(JSON.stringify(data)).trigger('change');
-                    }
-                })(jQuery);
-            </script>
+					// Remove a dropdown item
+					container.on('click', '.remove-dropdown-item', function() {
+						$(this).closest('li').remove();
+						updateTextarea(); // Update JSON after removing
+					});
+
+					// Update JSON on input changes
+					container.on('input change', '.dropdown-label, .dropdown-url, .dropdown-color, .dropdown-select', updateTextarea);
+
+					// Update JSON when selecting a marketplace
+					container.on('change', '.dropdown-select', function() {
+						const selected = $(this).val();
+						if (selected) {
+							const marketplace = JSON.parse(selected);
+							const item = $(this).closest('.dropdown-item');
+							item.find('.dropdown-label').val(marketplace.label);
+							item.find('.dropdown-url').val(marketplace.url);
+							item.find('.dropdown-color').val(marketplace.color);
+						}
+						updateTextarea();
+					});
+				});
+			})(jQuery);
+			</script>
+
             <?php
         }
     }
 }
+
 
