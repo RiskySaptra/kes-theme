@@ -63,7 +63,7 @@
                             role="menu" 
                             aria-orientation="vertical" 
                             aria-labelledby="dropdownButton"
-                            >
+                        >
                             <div class="py-1" role="none">
                                 <?php 
                                 // Retrieve dropdown links dynamically
@@ -76,10 +76,15 @@
 
                                         echo "<a 
                                                 href='{$url}' 
-                                                class='block px-4 py-2 text-sm text-gray-700 transition hover:text-white' 
+                                                class='flex items-center gap-2 block px-4 py-2 text-sm text-gray-700 transition hover:text-white' 
                                                 style='--hover-bg-color: {$color};' 
                                                 target='_blank'
                                                 role='menuitem'>
+                                                <img 
+                                                    src='" . get_template_directory_uri() . "/assets/icons/{$label}.png' 
+                                                    alt='{$label}-icon' 
+                                                    class='w-16 h-auto bg-white p-1 rounded-sm'
+                                                />
                                                 {$label}
                                             </a>";
                                     }
@@ -87,6 +92,7 @@
                                 ?>
                             </div>
                         </div>
+
                     </li> 
                 </ul>
             </div>

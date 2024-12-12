@@ -14,6 +14,9 @@
           class="max-w-[150px] h-auto"
         />
         <h3 class="text-xl mt-4 font-semibold">PT KMI Electric Solution</h3>
+        <p class="text-sm mt-2 leading-relaxed text-gray-300 text-justify font-normal">
+        PT KMI Electric Solution (KES) adalah anak perusahaan PT KMI Wire and Cable Tbk dan distributor resmi produk Kabelmetal Indonesia yang menyediakan solusi terbaik dalam distribusi kabel berkualitas tinggi di Indonesia.
+        </p>
         <p class="text-sm mt-2 leading-relaxed text-gray-300">
           Jl. Raya Bekasi Km 23.1 – Cakung, Jakarta 13910
         </p>
@@ -26,10 +29,7 @@
         <p class="text-sm mt-2">
           +6221 4614952
         </p>
-        <div class="flex space-x-4 mt-4">
-          <a href="#" aria-label="LinkedIn" class="text-white hover:text-[#2E82FF] transition duration-300">
-            <i class="fab fa-linkedin fa-lg"></i>
-          </a>
+        <div class="flex space-x-4 mt-4"> 
           <a href="#" aria-label="Facebook" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-facebook fa-lg"></i>
           </a>
@@ -46,7 +46,7 @@
 
       <div class="">
         <h3 class="font-semibold text-sm mb-2">Navigation</h3>
-        <ul class="space-y-1 text-xs"> 
+        <ul class="space-y-1 text-sm"> 
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'menu-1',
@@ -62,7 +62,7 @@
       <!-- Products Links -->
       <div class="">
         <h3 class="font-semibold text-sm mb-2">Products</h3>
-        <ul class="space-y-1 text-xs">
+        <ul class="space-y-1 text-sm">
             <li><a href="#" class="hover:underline hover:text-[#2E82FF] transition duration-300">Low Voltage Cables</a></li>
             <li><a href="#" class="hover:underline hover:text-[#2E82FF] transition duration-300">Flexible Cables</a></li>
             <li><a href="#" class="hover:underline hover:text-[#2E82FF] transition duration-300">Fire Resistant Cables</a></li>
@@ -75,7 +75,7 @@
       <!-- Company Contact Section -->
       <div class="">
         <h3 class="font-semibold text-sm mb-2">Company</h3>
-        <ul class="space-y-1 text-xs">
+        <ul class="space-y-1 text-sm">
           <li class="flex items-center">
             <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
               <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm1 0v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/>

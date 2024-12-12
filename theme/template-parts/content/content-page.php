@@ -13,7 +13,7 @@
 <div id="loading-overlay" class="fixed inset-0 bg-white flex items-center justify-center z-50 transition-all opacity-100">
 <div class="flex flex-col items-center justify-center space-y-4">
     <!-- Dynamic Logo -->
-    <div class="max-w-[250px] md:!max-w-[400px] h-auto mb-4 animate-pulse">
+    <div class="max-w-[250px] md:!max-w-[450px] h-auto mb-4 animate-pulse">
       <?php 
         // Get the custom logo
         if (has_custom_logo()) {
@@ -74,7 +74,7 @@
 
 <!-- Add the following JavaScript to hide the loader after the page loads -->
 <script>
-  window.addEventListener('load', function () {
+  window.addEventListener('DOMContentLoaded', function () {
     // Hide the loader after the page loads
     document.getElementById('loading-overlay').style.display = 'none';
     
