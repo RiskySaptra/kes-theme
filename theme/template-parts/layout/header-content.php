@@ -73,6 +73,7 @@
                                         $label = esc_html($link['label'] ?? '');
                                         $url = esc_url($link['url'] ?? '#');
                                         $color = esc_attr($link['color'] ?? '#4b5563'); // Default hover color (gray-600)
+                                        $label_lower = strtolower($label);
 
                                         echo "<a 
                                                 href='{$url}' 
@@ -81,7 +82,7 @@
                                                 target='_blank'
                                                 role='menuitem'>
                                                 <img 
-                                                    src='" . get_template_directory_uri() . "/assets/icons/{$label}.png' 
+                                                    src='" . get_template_directory_uri() . "/assets/icons/{$label_lower}.png' 
                                                     alt='{$label}-icon' 
                                                     class='w-16 h-auto bg-white p-1 rounded-sm'
                                                 />

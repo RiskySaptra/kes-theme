@@ -10,12 +10,13 @@
 <!-- Banner Section before main content -->
 <section class="bg-blue-600 text-white p-12 text-center w-full pt-[140px]">
     <h2 class="text-4xl font-bold leading-tight mb-4">
-        Welcome to Our Latest Article!
+        Selamat Datang di Artikel Terbaru Kami!
     </h2>
     <p class="text-xl opacity-90">
-        Stay updated with the latest posts and articles on our blog. Explore our content and dive in now.
+        Tetap terupdate dengan postingan dan artikel terbaru di blog kami. Jelajahi konten kami dan temukan informasi menarik sekarang.
     </p>
 </section>
+
 
 <section class="max-w-7xl mx-auto text-gray-800 w-full py-5">
     <nav class="flex items-center space-x-3 text-sm text-gray-500">
