@@ -8,16 +8,14 @@
 ?>
 
 <!-- Banner Section before main content -->
-<section class="bg-blue-600 text-white p-12 text-center w-full pt-[140px]">
-    <h2 class="text-4xl font-bold leading-tight mb-4">
-        Selamat Datang di Artikel Terbaru Kami!
-    </h2>
-    <p class="text-xl opacity-90">
-        Tetap terupdate dengan postingan dan artikel terbaru di blog kami. Jelajahi konten kami dan temukan informasi menarik sekarang.
-    </p>
+<section class="bg-blue-600 text-white text-center w-full">
+<img
+    src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-berita.jpeg"
+    alt="footer-background"
+    class="w-full right-0 bottom-0"
+  /> 
 </section>
-
-
+ 
 <section class="max-w-7xl mx-auto text-gray-800 w-full py-5">
     <nav class="flex items-center space-x-3 text-sm text-gray-500">
         <?php
