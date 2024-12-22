@@ -16,27 +16,32 @@
         <h3 class="text-xl mt-4 font-semibold">PT KMI Electric Solution</h3>
         <p class="text-sm mt-2 leading-relaxed text-gray-300 text-justify font-normal">
         PT KMI Electric Solution (KES) adalah anak perusahaan PT KMI Wire and Cable Tbk dan distributor resmi produk Kabelmetal Indonesia yang menyediakan solusi terbaik dalam distribusi kabel berkualitas tinggi di Indonesia.
-        </p>
+        </p> 
         <p class="text-sm mt-2 leading-relaxed text-gray-300">
+          <i class="fa fa-map-marker-alt mr-2"></i>
           Jl. Raya Bekasi Km 23.1 – Cakung, Jakarta 13910
         </p>
-        <p class="text-sm mt-2">
+        <p class="text-sm mt-2">  
+          <i class="fa fa-envelope mr-2"></i>
           <a href="mailto:sales@kmielectricsolution.co.id" class="text-white hover:text-[#2E82FF]">sales@kmielectricsolution.co.id</a>
         </p>
         <p class="text-sm mt-2">
-          <a href="https://kabelretail.co.id/" class="text-white hover:text-[#2E82FF]">https://kabelretail.co.id/</a>
+          <i class="fa fa-globe mr-2"></i>
+          <a href="https://kabelretail.co.id/" class="text-white hover:text-[#2E82FF]">www.kabelretail.co.id</a>
         </p>
+        
         <p class="text-sm mt-2">
+          <i class="fa fa-phone mr-2"></i>
           +6221 4614952
         </p>
         <div class="flex space-x-4 mt-4"> 
-          <a href="#" aria-label="Facebook" class="text-white hover:text-[#2E82FF] transition duration-300">
+          <a href="https://www.facebook.com/profile.php?id=61565981105742&mibextid=ZbWKwL" target="_blank" aria-label="Facebook" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-facebook fa-lg"></i>
           </a>
-          <a href="#" aria-label="Instagram" class="text-white hover:text-[#2E82FF] transition duration-300">
+          <a href="https://www.instagram.com/kes_kabelretail?igsh=MWU3OWN1cWxpYzA2Yg==" target="_blank" aria-label="Instagram" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-instagram fa-lg"></i>
           </a>
-          <a href="#" aria-label="TikTok" class="text-white hover:text-[#2E82FF] transition duration-300">
+          <a href="https://www.facebook.com/profile.php?id=61565981105742&mibextid=ZbWKwL" target="_blank" aria-label="TikTok" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-tiktok fa-lg"></i>
           </a>
         </div>
@@ -76,28 +81,20 @@
       <div class="">
         <h3 class="font-semibold text-sm mb-2">Company</h3>
         <ul class="space-y-1 text-sm">
-          <li class="flex items-center">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
-              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm1 0v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/>
-            </svg> -->
+          <li class="flex items-center"> 
+            <i class="fa fa-envelope mr-2"></i>
             <a href="mailto:sales@kmielectricsolution.co.id" class="hover:text-[#2E82FF] transition duration-300">sales@kmielectricsolution.co.id</a>
           </li>
-          <li class="flex items-center">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
-              <path d="M12.654 4.646a.5.5 0 0 1 0 .708L8.707 8.707a.5.5 0 0 1-.707-.707L11.293 5H7.5a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.146.354z"/>
-            </svg> -->
+          <li class="flex items-center"> 
+            <i class="fa fa-phone mr-2"></i>
             +6281 2193 43520 (Louis)
           </li>
-          <li class="flex items-center">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
-              <path d="M12.654 4.646a.5.5 0 0 1 0 .708L8.707 8.707a.5.5 0 0 1-.707-.707L11.293 5H7.5a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.146.354z"/>
-            </svg> -->
+          <li class="flex items-center"> 
+          <i class="fa fa-phone mr-2"></i>
             +6281 2124 88890 (Alfian)
           </li>
-          <li class="flex items-center">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
-              <path d="M12.654 4.646a.5.5 0 0 1 0 .708L8.707 8.707a.5.5 0 0 1-.707-.707L11.293 5H7.5a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.146.354z"/>
-            </svg> -->
+          <li class="flex items-center"> 
+          <i class="fa fa-phone mr-2"></i>
             +6281 3345 67695 (Ghifar)
           </li>
         </ul>
@@ -115,8 +112,7 @@
           />
         </div>
         <p class="text-xs mt-2 leading-relaxed text-gray-300">
-          Stay updated with our latest news and offers. Join us today to
-          revolutionize how you connect with your team and clients.
+        Dapatkan berita dan informasi terbaru dengan subscribe newsletter kami.
         </p>
       </div>
     </div>
