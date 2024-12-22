@@ -296,8 +296,10 @@
                     navbar.classList.remove('transparent');
                     navbarLinks.classList.add('text-gray-800', 'py-4');
                     navbarLinks.classList.remove('text-white', 'py-8');
-                    logo.classList.add('text-gray-800');
-                    logo.classList.remove('text-white');
+                    // if (logo) {
+                    //     logo.classList.add('text-gray-800');
+                    // }
+                    // logo.classList.remove('text-white');
 
                     // Update navbar items style, preserving active link styling
                     Array.from(navbarItems).forEach(item => {
@@ -312,8 +314,8 @@
                     navbar.classList.add('transparent');
                     navbarLinks.classList.add('text-white', 'py-8');
                     navbarLinks.classList.remove('text-gray-800', 'py-4');
-                    logo.classList.add('text-white');
-                    logo.classList.remove('text-gray-800');
+                    // logo.classList.add('text-white');
+                    // logo.classList.remove('text-gray-800');
 
                     // Reset navbar items style, preserving active link styling
                     Array.from(navbarItems).forEach(item => {
