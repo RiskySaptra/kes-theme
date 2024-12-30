@@ -41,8 +41,11 @@
           <a href="https://www.instagram.com/kes_kabelretail?igsh=MWU3OWN1cWxpYzA2Yg==" target="_blank" aria-label="Instagram" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-instagram fa-lg"></i>
           </a>
-          <a href="https://www.facebook.com/profile.php?id=61565981105742&mibextid=ZbWKwL" target="_blank" aria-label="TikTok" class="text-white hover:text-[#2E82FF] transition duration-300">
+          <a href="https://www.tiktok.com/@kes_kabelretail?_t=8sQ2qkaklTs&_r=1" target="_blank" aria-label="TikTok" class="text-white hover:text-[#2E82FF] transition duration-300">
             <i class="fab fa-tiktok fa-lg"></i>
+          </a>
+          <a href="linkedin" target="_blank" aria-label="TikTok" class="text-white hover:text-[#2E82FF] transition duration-300">
+            <i class="fab fa-linkedin fa-lg"></i>
           </a>
         </div>
         </div>
@@ -87,7 +90,7 @@
           </li>
           <li class="flex items-center"> 
             <i class="fa fa-phone mr-2"></i>
-            +6281 2193 43520 (Louis)
+            +6281 2193 43520 (Luis)
           </li>
           <li class="flex items-center"> 
           <i class="fa fa-phone mr-2"></i>
